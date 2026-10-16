@@ -77,7 +77,7 @@ for (const ev of events) {
 // Événements connus qui ne sont plus sur la page (complets / retirés)
 for (const [id, s] of Object.entries(state)) {
   if (current.has(id)) continue;
-  const misses = (s.misses ?? 0) + 1;
+  const misses = Math.min((s.misses ?? 0) + 1, MISSES_BEFORE_GONE);
   state[id] = { inStock: misses >= MISSES_BEFORE_GONE ? false : s.inStock, misses };
 }
 
