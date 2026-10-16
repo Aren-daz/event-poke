@@ -1,12 +1,12 @@
 import { EmbedBuilder } from 'discord.js';
 
-export function buildEmbed(ev) {
+export function buildEmbed(ev, kind = 'new') {
   const soldOut = /rupture/i.test(ev.stock ?? '');
   return new EmbedBuilder()
     .setTitle(ev.name)
     .setURL(ev.url)
     .setColor(soldOut ? 0x95a5a6 : 0xffcb05)
-    .setAuthor({ name: 'Gamespirit – nouvel événement Pokémon' })
+    .setAuthor({ name: kind === 'restock' ? 'Gamespirit – de nouveau disponible (Pokémon)' : 'Gamespirit – nouvel événement Pokémon' })
     .setDescription(ev.title)
     .addFields(
       { name: 'Prix', value: ev.price ?? 'Non communiqué', inline: true },

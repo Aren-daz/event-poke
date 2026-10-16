@@ -11,9 +11,22 @@ const write = (file, data) => {
   writeFileSync(file, JSON.stringify(data, null, 2));
 };
 
-export const loadSeen = () => {
+/**
+ * État des événements connus : { [id]: { inStock: boolean, misses: number } }
+ * (l'ancien format, un simple tableau d'ids, est converti). null = premier lancement.
+ */
+export function loadState() {
   const d = read(SEEN);
-  return d ? new Set(d) : null;
+  if (d === null) return null;
+  if (Array.isArray(d)) return Object.fromEntries(d.map((id) => [id, { inStock: true, misses: 0 }]));
+  return d;
+}
+export const saveState = (state) => write(SEEN, state);
+
+// Anciennes API (bot gateway index.js)
+export const loadSeen = () => {
+  const s = loadState();
+  return s ? new Set(Object.keys(s)) : null;
 };
 export const saveSeen = (seen) => write(SEEN, [...seen]);
 
