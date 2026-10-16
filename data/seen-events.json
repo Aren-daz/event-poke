@@ -1,11 +1,11 @@
 {
   "117008": {
-    "inStock": true,
-    "misses": 1
+    "inStock": false,
+    "misses": 2
   },
   "117145": {
-    "inStock": true,
-    "misses": 1
+    "inStock": false,
+    "misses": 2
   },
   "117285": {
     "inStock": true,
